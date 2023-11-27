@@ -1,0 +1,11 @@
+<h1>Catstagram</h1>
+
+<p>Cat photos</p>
+
+<% @items.each do |item| %>
+  <div>
+    <h2><%= item.title %></h2>
+    <p><%= item.description %></p>
+    <%= link_to 'View Details', item_path(item) %>
+  </div>
+<% end %>
