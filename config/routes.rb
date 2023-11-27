@@ -7,6 +7,15 @@ Rails.application.routes.draw do
   root 'item#index'
   get 'show' => 'item#show'
 
+  scope '/payment' do
+    post 'create', to: 'payment#create', as: 'checkout_create'
+    get 'success', to: 'payment#success', as: 'checkout_success'
+    get 'cancel', to: 'payment#cancel', as: 'checkout_cancel'
+
+    # Only for testing
+    get 'new', to: 'payment#new', as: 'checkout_new'
+  end
+
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")
