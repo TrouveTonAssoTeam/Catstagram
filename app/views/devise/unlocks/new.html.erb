@@ -1,0 +1,20 @@
+<div class="form-center">
+<h2 class="text-center">Renvoyer les instructions de débloquage</h2>
+
+<%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+
+  <div class="form-group">
+    <%= f.label :email, "Email", class: "form-label mt-4" %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+  </div>
+
+  <div class="actions mt-4 text-center">
+    <%= f.submit "Renvoyer les instructions", class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+  <div class="mt-4 d-flex flex-column align-items-center">
+    <%= render "devise/shared/links" %>
+  </div>
+</div>
