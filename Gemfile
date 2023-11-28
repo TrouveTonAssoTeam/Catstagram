@@ -73,3 +73,5 @@ gem "dotenv-rails", "~> 2.8"
 gem "table_print", "~> 1.5"
 
 gem "faker", "~> 3.2"
+
+gem "stripe", "~> 10.1"
