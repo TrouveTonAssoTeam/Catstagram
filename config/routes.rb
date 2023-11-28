@@ -16,6 +16,8 @@ Rails.application.routes.draw do
     get 'new', to: 'payment#new', as: 'checkout_new'
   end
 
+  get '/how_it_works', to: 'pages#how_it_works'
+  
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")
