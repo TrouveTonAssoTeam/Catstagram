@@ -1,14 +1,16 @@
-<div id="push"></div>
-<footer class="footer navbar-fixed-bottom">
-    <div class="container">
-        <nav>
-            <ul>
-            <li><%= link_to "Accueil", "#" %></li>
-            <li><%= link_to "A propos", "#" %></li>
-            <li><%= link_to "Comment ça marche?", "#" %></li>
-            <li><%= link_to "Nous contacter", "#" %></li>
-            <li><%= link_to "CGU", "#" %></li>
-            </ul>
-        </nav>
-    </div>
-</footer>
+<footer class="footer py-3 bg-light text-center">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-12 mb-2">
+            <!-- Retour en haut de page centré -->
+            <%= link_to "Retour en haut de page", "#", class: "btn btn-outline-primary btn-sm" %>
+          </div>
+          <div class="col-md-12">
+            <!-- Liens supplémentaires centrés -->
+            <%= link_to "CGU", "#", class: "mx-2" %>
+            <%= link_to "Nous contacter", "#", class: "mx-2" %>
+            <%= link_to "À propos", "#", class: "mx-2" %>
+          </div>
+        </div>
+      </div>
+ </footer>
