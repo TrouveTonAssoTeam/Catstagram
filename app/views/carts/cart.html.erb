@@ -1,0 +1,7 @@
+<% @cart.cart_items.each do |item| %>
+    <p><%= item.name %> - <%= item.price %> - <%= item.quantity %></p>
+    <%= button_to "Supprimer", remove_item_cart_path(@cart, cart_item_id: item.id), method: :delete %>
+  <% end %>
+  
+  <p>Total du panier : <%= @cart.total %></p>
+  

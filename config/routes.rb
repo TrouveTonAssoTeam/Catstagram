@@ -7,6 +7,15 @@ Rails.application.routes.draw do
   root 'item#index'
   get 'show' => 'item#show'
 
+# config/routes.rb
+resources :carts do
+  resources :cart_items, only: [:destroy]
+end
+
+resources :carts do
+  delete 'remove_item/:cart_item_id', to: 'carts#remove_item', as: 'remove_item', on: :member
+end
+
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")
