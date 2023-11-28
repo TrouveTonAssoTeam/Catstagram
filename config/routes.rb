@@ -18,6 +18,7 @@ Rails.application.routes.draw do
 
   get '/how_it_works', to: 'pages#how_it_works'
   get '/contact', to: 'pages#contact'
+  get '/about', to: 'pages#about'
   
   get "up" => "rails/health#show", as: :rails_health_check
 

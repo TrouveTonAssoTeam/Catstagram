@@ -22,7 +22,7 @@
             <%= link_to "Accueil", root_path, class: "nav-link #{is_active?(root_path)}" %>
           </li>
           <li class="nav-item">
-            <%= link_to "Comment ça marche ?", how_it_works_path, class: "nav-link #{is_active?(how_it_works_path)}" %>
+            <%# link_to "Comment ça marche ?", how_to_use_path, class: "nav-link #{is_active?(how_to_use_path)}" %>
           </li>
           <li class="nav-item">
             <%# link_to "A propos", about_path, class: "nav-link #{is_active?(about_path)}" %>
@@ -31,7 +31,7 @@
             <%# link_to "Panier", cart_path, class: "nav-link #{is_active?(cart_path)}" %>
           </li>
           <li class="nav-item">
-            <%= link_to "Contact", contact_path, class: "nav-link #{is_active?(contact_path)}" %>
+            <%# link_to "Contact", contact_path, class: "nav-link #{is_active?(contact_path)}" %>
           </li>
           <% if user_signed_in? %>
           
