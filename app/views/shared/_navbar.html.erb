@@ -31,7 +31,7 @@
             <%# link_to "Panier", cart_path, class: "nav-link #{is_active?(cart_path)}" %>
           </li>
           <li class="nav-item">
-            <%# link_to "Contact", contact_path, class: "nav-link #{is_active?(contact_path)}" %>
+            <%= link_to "Contact", contact_path, class: "nav-link #{is_active?(contact_path)}" %>
           </li>
           <% if user_signed_in? %>
           
