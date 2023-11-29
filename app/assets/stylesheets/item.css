@@ -1,0 +1,48 @@
+.item-container {
+    padding: 0.5rem;
+    display: flex;
+}
+
+.item {
+    position: relative;
+    border-radius: 16px;
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    width: fit-content;
+    margin: auto;
+}
+
+.item .item-price,
+.item .add-to-cart {
+    position: absolute;
+    bottom: 0;
+    margin: 1rem;
+    transition: all 0.2s ease;
+    color: white;
+    background-color: black;
+    padding: 0.25rem 0.5rem;
+    border-radius: inherit;
+}
+.item .item-price {
+    left: 0;
+    opacity: 0.5;
+    border-radius: inherit;
+}
+.item .item-price::after {
+    content: "€";
+}
+
+.item .add-to-cart {
+    right: 0;
+    transform: translateY(200%);
+}
+.item .add-to-cart svg {
+    fill: white;
+}
+
+.item:hover .item-price {
+    opacity: 1;
+}
+.item:hover .add-to-cart {
+    transform: translateY(0);
+}

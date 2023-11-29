@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>
+        Bonne nouvelle <%= @user.first_name %> ! <br/>
+        Votre commande est confirmée !
+    </h1>
+    <p>
+        Vous pouvez trouver les détails de votre commande ici : <a href='http://localhost:3000/orders/<%= @order.id %>'>http://localhost:3000/orders/<%= @order.id %></a>
+    </p>
+
+    <p>
+        Total de votre commande : <%# @order.total %> €
+    </p>
+
+    <p>
+        Notre équipe fait déjà des pieds et des pattes pour traiter votre commande. <br/>
+        Bonne journée et à bientôt sur Catstagram !
+    </p>
+    
+  </body>
+</html>
