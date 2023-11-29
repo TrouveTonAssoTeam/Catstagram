@@ -1,0 +1,2 @@
+module CguHelper
+end
