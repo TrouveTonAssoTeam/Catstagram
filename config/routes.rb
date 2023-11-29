@@ -7,14 +7,13 @@ Rails.application.routes.draw do
   root 'item#index'
   get 'show' => 'item#show'
 
-# config/routes.rb
-resources :carts do
-  resources :cart_items, only: [:destroy]
-end
+  
 
-resources :carts do
+  # config/routes.rb
+  resources :carts, only: :show do
+  resources :cart_items, only: [:destroy]
   delete 'remove_item/:cart_item_id', to: 'carts#remove_item', as: 'remove_item', on: :member
-end
+  end
 
   scope '/payment' do
     post 'create', to: 'payment#create', as: 'checkout_create'
