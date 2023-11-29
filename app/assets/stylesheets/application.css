@@ -16,6 +16,7 @@
  *= require navbar
  *= require profile
  *= require item
+ *= require show
  */
 
 .form-center {
