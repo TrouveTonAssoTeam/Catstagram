@@ -9,6 +9,10 @@ class OrderMailer < ApplicationMailer
     end
 
     def new_order_admin(order)
-
+        @order = order
+        
+        User.where(role: "admin").each do |user|
+            mail(to: user.email, subject: "Nouvelle commande !")
+        end
     end
 end
