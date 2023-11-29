@@ -19,6 +19,9 @@ Rails.application.routes.draw do
   get '/contact', to: 'pages#contact'
   get '/about', to: 'pages#about'
   
+  post '/accept_cgu', to: 'cgu#accept', as: 'accept_cgu'
+  get '/cgu', to: 'cgu#show', as: 'cgu'
+  
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")

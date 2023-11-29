@@ -1,0 +1,61 @@
+<h1 class="text-center"><%= @cgu_text[:title] %></h1>
+
+<br>
+<br>
+<p class="text-center">Conditions Générales d'Utilisation de la Boutique Catstagram.
+
+En utilisant notre site web, vous acceptez les conditions générales d'utilisation énoncées ci-dessous. Veuillez lire attentivement ces conditions avant de naviguer ou d'effectuer un achat sur notre boutique.
+
+    Acceptation des Conditions
+    En accédant à ce site web, vous déclarez avoir lu, compris et accepté les présentes conditions générales d'utilisation. Si vous n'acceptez pas ces conditions, veuillez ne pas utiliser notre site.
+
+    Commandes et Paiements
+        Toutes les commandes passées sur notre site sont soumises à disponibilité.
+        Les prix sont indiqués en [devise] et peuvent être modifiés sans préavis.
+        Les paiements sont traités de manière sécurisée via [méthode de paiement].
+        Nous nous réservons le droit de refuser toute commande à notre discrétion.
+
+    Livraison
+        Les délais de livraison sont estimés et peuvent varier en fonction de votre emplacement.
+        Nous ne sommes pas responsables des retards de livraison indépendants de notre volonté.
+
+    Droits d'Auteur et Propriété Intellectuelle
+        Toutes les images de chats disponibles à l'achat sont protégées par des droits d'auteur.
+        L'achat d'une image ne confère pas les droits de reproduction ou de distribution sans autorisation.
+
+    Politique de Remboursement et de Retour
+        Consultez notre politique de remboursement et de retour pour obtenir des informations détaillées sur les remboursements et les retours.
+
+    Protection des Données Personnelles
+        Consultez notre politique de confidentialité pour comprendre comment nous collectons, utilisons et protégeons vos données personnelles.
+
+    Cookies
+        Notre site utilise des cookies. En continuant à utiliser le site, vous consentez à l'utilisation de cookies conformément à notre politique en matière de cookies.
+
+    Modification des Conditions Générales
+        Nous nous réservons le droit de modifier ces conditions générales à tout moment. Les modifications seront effectives dès leur publication sur le site.
+
+    Contact
+        Pour toute question ou préoccupation concernant ces conditions générales, veuillez nous contacter à [adresse e-mail ou numéro de téléphone].
+
+Merci de faire confiance à notre boutique de vente d'images de chats. Nous espérons que vous apprécierez nos produits !<p>
+<p><%= @cgu_text[:acceptance] %></p>
+
+
+
+
+<%= form_tag accept_cgu_path, method: :post do %>
+  <label>
+    <%= check_box_tag "acceptance", "1", false, id: "acceptance_checkbox" %>
+    <%= @cgu_text[:acceptance_checkbox] %>
+  </label>
+  <br>
+  <%= submit_tag "Accepter les CGU", disabled: true, id: "accept_button" %>
+<% end %>
+
+<script>
+  document.getElementById("acceptance_checkbox").addEventListener("change", function() {
+    document.getElementById("accept_button").disabled = !this.checked;
+  });
+</script>
+</p>

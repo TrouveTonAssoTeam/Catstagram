@@ -27,5 +27,11 @@
 #       "yes": yup
 #       enabled: "ON"
 
+fr:
+  cgu:
+    # ... (autres sections)
+    acceptance_checkbox: "J'accepte les Conditions Générales d'Utilisation"
+
+
 en:
   hello: "Hello world"
