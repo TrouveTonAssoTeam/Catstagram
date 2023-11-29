@@ -1,0 +1,40 @@
+<h1 class="text-center">Modifier mon profil</h1>
+<%= form_with(model: @user, url: profile_update_path, method: :update) do |form| %>
+    <div class="form-group">
+        <%= form.label :first_name, "Prénom", class: "form-label mt-4" %>
+        <%= form.text_field :first_name, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+        <%= form.label :last_name, "Nom", class: "form-label mt-4" %>
+        <%= form.text_field :last_name, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+        <%= form.label :address, "Adresse", class: "form-label mt-4" %>
+        <%= form.text_field :address, class: "form-control" %>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <%= form.label :postal_code, "Code postal", class: "form-label mt-4" %>
+            <%= form.text_field :postal_code, class: "form-control" %>
+        </div>
+
+        <div class="col">
+            <%= form.label :city, "Ville", class: "form-label mt-4" %>
+            <%= form.text_field :city, class: "form-control" %>
+        </div>
+
+        <div class="col">
+            <%= form.label :country, "Pays", class: "form-label mt-4" %>
+            <%= form.select(:country, options_for_select(['', 'FR', 'BE', 'CH'], @user.country), {}, {class: "form-select"}) %>
+    </div>
+
+  <%= form.label :phone, "Téléphone", class: "form-label mt-4" %>
+  <%= form.text_field :phone, class: "form-control" %>
+
+    <div class="text-center">
+        <%= form.submit "Mettre à jour", class: "btn btn-primary mt-4" %>
+    </div>
+<% end %>

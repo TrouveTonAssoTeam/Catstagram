@@ -1,4 +1,5 @@
-
+Rails.application.routes.draw do
+  
 Rails.application.routes.draw do
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -17,6 +18,13 @@ Rails.application.routes.draw do
     get 'new', to: 'payment#new', as: 'checkout_new'
   end
 
+  # Profile page and edit
+  get 'profile', to: 'profile#show', as: 'profile'
+  scope '/profile'  do
+    get 'edit', to: 'profile#edit', as: 'profile_edit'
+    post 'update', to: 'profile#update', as: 'profile_update'
+  end
+
   get '/how_it_works', to: 'pages#how_it_works'
   get '/contact', to: 'pages#contact'
   get '/about', to: 'pages#about'
@@ -26,4 +34,4 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 end
-
+end
