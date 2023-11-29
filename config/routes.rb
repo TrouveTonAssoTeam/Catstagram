@@ -22,6 +22,13 @@ Rails.application.routes.draw do
   post '/accept_cgu', to: 'cgu#accept', as: 'accept_cgu'
   get '/cgu', to: 'cgu#show', as: 'cgu'
   
+  # Profile page and edit
+  get 'profile', to: 'profile#show', as: 'profile'
+  scope '/profile'  do
+    get 'edit', to: 'profile#edit', as: 'profile_edit'
+    post 'update', to: 'profile#update', as: 'profile_update'
+  end
+
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")
