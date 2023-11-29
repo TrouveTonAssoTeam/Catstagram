@@ -1,7 +1,16 @@
+<%# Flex Masonry for displaying the grid %>
+<link rel="stylesheet" href="https://unpkg.com/flexmasonry/dist/flexmasonry.css">
+<script src="https://unpkg.com/flexmasonry/dist/flexmasonry.js"></script>
 
-<br>
-<h3 class="text-center">Portfolio </h3>
-<br>
-<p class="text-center">Bienvenue chez Catstagram, l'endroit idéal pour les amoureux des chats et de la photographie ! Notre boutique en ligne a été créée avec passion pour capturer la beauté et la personnalité uniques de nos amis félins à travers des photographies exceptionnelles. <p>
+<h1 class="text-center my-5">Catstagram</h1>
+<p class="text-center">Bienvenue chez Catstagram, l'endroit idéal pour les amoureux des chats et de la photographie ! Notre boutique en ligne a été créée avec passion pour capturer la beauté et la personnalité uniques de nos amis félins à travers des photographies exceptionnelles.</p>
 
-<p class="text-center">Notre collection de photos est soigneusement sélectionnée pour capturer l'essence même de ces créatures fascinantes.<p> 
+<p class="text-center">Notre collection de photos est soigneusement sélectionnée pour capturer l'essence même de ces créatures fascinantes.</p> 
+
+<div class="masonry">
+    <%= render partial: "item", collection: @items %>
+</div>
+
+<script>
+    FlexMasonry.init('.masonry');
+</script>
