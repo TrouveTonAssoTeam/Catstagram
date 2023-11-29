@@ -1,0 +1,42 @@
+<h1 class="text-center my-5 w-100">Mon compte</h1>
+
+<div class="row profile-row">
+    <div class="col-lg-6 col-12 profile-card">
+        <h4>Informations personnelles</h4>
+        <p>E-mail : <%= @user.email %></p>
+        <p>Mot de passe : ************* <br/>
+            <small>
+            <%= link_to 'Changer le mot de passe', edit_user_registration_path(@user), class: 'link text-muted' %>
+            </small>
+        </p>
+        <hr>
+        <p class="mt-3 lead text-center">Informations enregistrées pour vos prochains achats</p>
+        <p>Prénom : <%= @user.first_name %></p>
+        <p>Nom : <%= @user.last_name %></p>
+        <p>Adresse : <span style="display: inline-flex"><%= @user.address %> <br/> <%= @user.postal_code %> <%= @user.city %></span></p>
+        <p>Pays : <%= @user.country %></p>
+        <p>Téléphone : <%= @user.phone %></p>
+        
+        <div class="text-center mt-4">
+            <%= link_to 'Modifier', profile_edit_path, class: 'btn btn-primary' %>
+            <%= button_to 'Supprimer mon compte', user_registration_path, form: { data: { turbo_confirm: 'Etes-vous sûr de vouloir supprimer votre compte ?' } }, method: :delete, class: 'btn btn-link text-danger' %>
+        </div>
+    </div>
+
+    <div class="col-lg-6 col-12 profile-card">
+        <h4>Mes a-chats</h4>
+
+        <% if @orders.empty? %>
+            <div class="text-center">
+                <p>Vous n'avez pas encore de commande.</p>
+                <%= link_to 'Faire des achats', root_path, class: 'btn btn-primary' %>
+            </div>
+        <% else %>
+            <% @orders.each do |order| %>
+                <p>
+                    <%= link_to order, order_path(order) %>
+                </p>
+            <% end %>
+        <% end %>
+    </div>
+</div>
