@@ -1,72 +1,9 @@
-
-<style>
-  /* Styles CSS pour la mise en page du produit */
-  .product-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 50px;
-  }
-
-  .product-details {
-    text-align: center;
-    margin-bottom: 30px;
-  }
-
-  .product-name {
-    font-size: 28px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: black;
-  }
-
-  .product-description {
-    font-size: 18px;
-    margin-bottom: 20px;
-  }
-
-  .product-price {
-    font-size: 24px;
-    color: black;
-    margin-bottom: 20px;
-  }
-
-  .product-buttons {
-    display: flex;
-    justify-content: center;
-  }
-
-  .action-button {
-    margin: 0 10px;
-    padding: 12px 24px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-
-  .action-button:hover {
-    opacity: 0.8;
-  }
-
-  .buy-button {
-    background-color: #4CAF50;
-    color: white;
-  }
-
-  .info-button {
-    background-color: #2196F3;
-    color: white;
-  }
-</style>
-
-</head>
-<body>
-
 <div class="product-container">
-  <!-- Filtre par type -->
-  <div class="filter-by-type">
+ 
+  <!-- Détails de l'article -->
+   <div class="product-details">
+   <div class="product-name"><%= @item.name %></div>
+   <div class="filter-by-type">
     <label for="type-filter">Filtrer par type :</label>
     <select id="type-filter">
       <option value="type_photo">Photo</option>
@@ -74,11 +11,12 @@
       <option value="type_poster">Poster</option>
       <!-- ... Autres options en fonction des tags disponibles ... -->
     </select>
+    <br>
+   <br>
+   <div class="product-img"><%= image_tag @item.image, id: 'item-image' if @item.image.attached? %></div>
+    <br>
   </div>
-
-  <!-- Détails de l'article -->
-   <div class="product-details">
-    <div class="product-name"><%= @item.name %></div>
+  <br>
     <div class="product-description"><%= @item.description %></div>
     <div class="product-price"><%= @item.price %>€</div>
       <button class="action-button buy-button">Ajouter au panier</button>
@@ -107,5 +45,3 @@ var typeFilter = document.getElementById('type-filter');
   });
 </script>
 
-</body>
-</html>
