@@ -75,3 +75,5 @@ gem "table_print", "~> 1.5"
 gem "faker", "~> 3.2"
 
 gem "stripe", "~> 10.1"
+
+gem "letter_opener", "~> 1.8"
