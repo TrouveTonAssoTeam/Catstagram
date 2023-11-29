@@ -29,4 +29,5 @@ class CartsController < ApplicationController
         redirect_to cart_path(current_user.cart), notice: 'Article supprimé du panier.'
     end
     
+    link.to 
 end
