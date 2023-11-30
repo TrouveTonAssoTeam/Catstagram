@@ -17,12 +17,13 @@
     <br>
   </div>
   <br>
-    <div class="product-description"><%= @item.description %></div>
-    <div class="product-price"><%= @item.price %>€</div>
-      <button class="action-button buy-button">Ajouter au panier</button>
-    </div>
+  <div class="product-description"><%= @item.description %></div>
+  <div class="product-price"><%= @item.price %>€</div>
+  <%= button_tag "Ajouter au panier", class: "btn btn-primary buy-button", type: "button" %>
   </div>
-</div>
+  </div>
+  </div>
+  
 
 <script>
 var priceElem = document.getElementsByClassName("product-price")[0];
