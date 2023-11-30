@@ -4,8 +4,7 @@ class ProfileController < ApplicationController
     def show
         @user = current_user
 
-        # @orders = @user.orders
-        @orders = []
+        @orders = @user.orders
     end
 
     def edit
@@ -23,13 +22,10 @@ class ProfileController < ApplicationController
         @user.country = params[:user][:country]
         @user.phone = params[:user][:phone]
 
-        puts "#" * 50
-        puts params[:user][:first_name]
-        puts "#" * 50
 
         if @user.save
             redirect_to profile_path
-            notice = "Your profile has been updated"
+            notice = "Votre profile a bien été mis à jour."
         else 
             render :edit
         end

@@ -6,14 +6,6 @@ class PaymentController < ApplicationController
         @user = current_user
         if @user.Stripe_id
           @customer = Stripe::Customer.retrieve(@user.Stripe_id)
-
-            # Check if the customer is deleted or not
-            if @customer.deleted
-              @customer = Stripe::Customer.create(
-                email: @user.email
-              )
-              @user.update(Stripe_id: @customer.id)
-            end
         else
           @customer = Stripe::Customer.create(
             email: @user.email
@@ -22,6 +14,14 @@ class PaymentController < ApplicationController
         end
 
         @total = params[:total].to_d
+
+        @line_items = current_user.cart.join_table_items_carts.map do |item|
+          {
+            price: Item.find(item.item_id).stripe_price,
+            quantity: item.quantity
+          }
+        end
+
         @session = Stripe::Checkout::Session.create(
           payment_method_types: ['card'],
 
@@ -35,18 +35,7 @@ class PaymentController < ApplicationController
           },
 
         #   Retrieve items id from the cart
-          line_items: [
-            {
-              price_data: {
-                currency: 'eur',
-                unit_amount: (@total*100).to_i,
-                product_data: {
-                  name: 'Rails Stripe Checkout',
-                },
-              },
-              quantity: 1
-            },
-          ],
+          line_items: @line_items,
           mode: 'payment',
           success_url: checkout_success_url + '?session_id={CHECKOUT_SESSION_ID}',
           cancel_url: checkout_cancel_url
@@ -68,11 +57,29 @@ class PaymentController < ApplicationController
           @customer.save
         end
 
-        # Create an order after successful payment
-        # Order.create(
-        #     user_id: current_user.id,
-        #     Stripe_id: @session.id,
-        # )
+        # Create an order after successful payment only if not already created
+        if Order.where(stripe_id: @session.id).count == 0
+          @order = Order.new(
+              user_id: current_user.id,
+              stripe_id: @session.id,
+          )
+
+          current_user.cart.join_table_items_carts.each do |item|
+            if item.quantity == 1
+              @order.items << Item.find(item.item_id)
+            else
+              @order.orderitems << Orderitem.new(
+                item_id: item.item_id,
+                order_id: @order.id,
+                quantity: item.quantity
+              )
+            end
+          end
+
+          if @order.save
+            current_user.cart.join_table_items_carts.destroy_all
+          end
+        end
     end
     
     def cancel

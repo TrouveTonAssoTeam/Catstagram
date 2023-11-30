@@ -43,6 +43,9 @@ Rails.application.routes.draw do
     post 'update', to: 'profile#update', as: 'profile_update'
   end
 
+  # Orders
+  resources :orders, only: [:show]
+
   # Admin dashboard
   resources :dashboard, only: [:index]
 

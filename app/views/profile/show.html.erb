@@ -34,7 +34,7 @@
         <% else %>
             <% @orders.each do |order| %>
                 <p>
-                    <%= link_to order, order_path(order) %>
+                    <%= link_to "Commande n°#{order.id} effectuée le #{order.created_at}", order_path(order) %>
                 </p>
             <% end %>
         <% end %>

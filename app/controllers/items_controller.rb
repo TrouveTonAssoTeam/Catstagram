@@ -7,6 +7,18 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
     if @item.save
+      @productStripe = Stripe::Product.create(
+        name: @item.name,
+        description: @item.description,
+        images: [@item.image_url]
+      )
+      @priceStripe = Stripe::Price.create(
+        unit_amount: (@item.price * 100).to_i,
+        currency: 'eur',
+        product: @productStripe.id,
+        active: true
+      )
+      @item.update(stripe_product: @productStripe.id, stripe_price: @priceStripe.id)
       redirect_to @item, notice: 'Photo ajoutée!'
     else
       render :new
@@ -62,6 +74,17 @@ class ItemsController < ApplicationController
   def update
     @item = Item.find(params[:id])
     if @item.update(item_params)
+
+      @productStripe = Stripe::Product.retrieve(@item.stripe_id)
+      @productStripe.name = @item.name
+      @productStripe.description = @item.description
+      @productStripe.images = [@item.image_url]
+      @productStripe.save
+
+      @priceStripe = Stripe::Price.retrieve(@item.stripe_price)
+      @priceStripe.unit_amount = (@item.price * 100).to_i
+      @priceStripe.save
+
       flash[:notice] = 'Produit modifié !'
       redirect_back(fallback_location: item_path(@item))
     else
@@ -73,6 +96,9 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
     @item.active = false
     @item.save
+
+    Stripe::Product.retrieve(@item.stripe_id).update(active: false)
+
     redirect_back(fallback_location: root_path)
   end
 
@@ -80,6 +106,9 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
     @item.active = true
     @item.save
+
+    Stripe::Product.retrieve(@item.stripe_id).update(active: true)
+
     redirect_back(fallback_location: root_path)
   end
 

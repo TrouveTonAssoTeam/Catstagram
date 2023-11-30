@@ -9,7 +9,17 @@
     <h3 class="mt-5">Votre commande :</h3>
     <div class="row">
         <div class="card">
-            <%= @order %>
+            <% @order.orderitems.each do |item| %>
+                <div class="row">
+                    <div class="col">
+                        <img src="<%= item.item.image_url %>" alt="<%= item.item.name %>">
+                    </div>
+                    <div class="col">
+                        <h5><%= item.item.name %></h5>
+                        <p><%= item.item.price %>€ x <%= item.quantity %> = <%= item.item.price * item.quantity %>€</p>
+                    </div>
+                </div>
+            <% end %>
         </div>
     </div>
 </div>
