@@ -1,0 +1,66 @@
+Copy code
+<div class="container">
+    <h1>Mon panier</h1>
+    <br/>
+    <br/>
+        <div class="row">
+            <div class="col">
+                <table class="table">
+                    <thead>
+                        <tr>
+                        <th scope="col">Quantité</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Nom de produit</th>
+                        <th scope="col">Prix unitaire</th>
+                        <th scope="col">Prix selon quantité</th>
+                        <th scope="col"></th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% total_price = [] %>
+                        <%  @items_in_cart.each do |item| %>
+                            <tr>
+                            <th scope="row" class="align-middle">
+                            <div class="d-flex align-items-center" style="background-color: #f7f7f9;">
+                                <span class="ms-3"><%= JoinTableItemsCart.find(item.id).quantity %></span>
+                                <div class="btn-group-vertical ms-auto">
+                                    <%= button_to increment_cart_item_path(item.id), method: :post, class: 'btn btn-primary px-2 py-0' do %>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-up" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
+                                        </svg>
+                                    <% end %>
+
+                                    <%= button_to decrement_cart_item_path(item.id), method: :post, class: 'btn btn-primary px-2 py-0' do %>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                                        </svg>
+                                    <% end %>
+                                </div>
+                            </th>
+                            <td>
+                                <img src="<%= item.item.image_url %>" alt="<%= item.item.name %>">
+                            </td>
+                            <td class="align-middle"><%= item.item.name %></td>
+                            <td class="align-middle"><%= item.item.price %>€</td>
+                            <td class="align-middle"><%= total_item = item.item.price*item.quantity.to_d %>€</td>
+                            <td class="align-middle">
+                                <%= button_to 'Supprimer le produit', remove_item_from_cart_path(item.id), form: { data: { turbo_confirm: 'Etes-vous sûr de vouloir supprimer le produit ?' } }, method: :delete, class: 'btn btn-danger' %>
+                            </td>
+                            </tr>
+                        <% end %>
+                        
+                         <tr>
+                            <th scope="row"></th>
+                            <td></td>
+                            <td></td>
+                            <td class="fw-bold align-middle">Prix total:</td>
+                            <td class="align-middle"><%= @items_in_cart.map{|item| Item.find(item.item_id).price * item.quantity}.sum%>€</td>
+                            <td class="align-middle"><%= button_to 'Valider mon panier', checkout_create_path, class: 'btn btn-primary' %></td>
+                            </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
