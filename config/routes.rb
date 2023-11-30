@@ -29,6 +29,9 @@ Rails.application.routes.draw do
     post 'update', to: 'profile#update', as: 'profile_update'
   end
 
+  # Admin dashboard
+  resources :dashboard, only: [:index]
+
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")
