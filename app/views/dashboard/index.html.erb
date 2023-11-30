@@ -1,0 +1,38 @@
+<h1 class="text-center my-5">Dashboard</h1>
+
+<h3>Produits actifs</h3>
+<%= link_to 'Ajouter un produit', new_item_path, class: 'btn btn-primary' %>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Type</th>
+      <th scope="col">Image</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Description</th>
+      <th scope="col">Prix</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render partial: 'dashboard/item', collection: @items %>
+  </tbody>
+</table>
+
+<h3>Produits archivés</h3>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Type</th>
+      <th scope="col">Image</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Description</th>
+      <th scope="col">Prix</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render partial: 'dashboard/archived_item', collection: @deleted_items %>
+  </tbody>
+</table>
+

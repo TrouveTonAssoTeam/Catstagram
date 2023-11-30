@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   resources :items
+
   resources :join_table_items_carts, only: [:create, :update, :destroy]
   resources :carts, except: [:index, :new, :edit]
   resources :join_table_items_carts  # Cette ligne génère toutes les routes CRUD pour JoinTableItemsCarts
@@ -12,6 +13,7 @@ Rails.application.routes.draw do
   # Si vous avez besoin d'une route spécifique pour afficher un élément spécifique, vous pouvez ajouter une route "show"
   get 'join_table_items_carts/:id', to: 'join_table_items_carts#show', as: 'show_join_table_items_cart'
 
+  post 'items/:id/unarchive', to: 'items#unarchive', as: 'unarchive_item'
 
   root 'items#index'
 
@@ -36,6 +38,9 @@ Rails.application.routes.draw do
     get 'edit', to: 'profile#edit', as: 'profile_edit'
     post 'update', to: 'profile#update', as: 'profile_update'
   end
+
+  # Admin dashboard
+  resources :dashboard, only: [:index]
 
   get "up" => "rails/health#show", as: :rails_health_check
 
