@@ -1,38 +1,37 @@
-<div class="text-center">
-  <br>
-  <br>
-  <h1>Ajouter une photo</h1>
+<div class="form-center">
+  <h2 class="text-center">Ajouter une photo</h2>
 
   <%= form_with(model: @item, local: true) do |form| %>
-    <div class="form-group">
-      <%= form.label :name, class: "form-label mt-4" %><br>
-      <%= form.text_field :name, class: "form-control col-6" %>
+    <%= render "devise/shared/error_messages", resource: @item %>
+
+    <div class="form-group text-center">
+      <%= form.label :name, class: "form-label mt-4" %><br />
+      <%= form.text_field :name, class: "form-control col-4" %>
     </div>
 
-    <div class="form-group">
-      <%= form.label :description, class: "form-label mt-4" %><br>
-      <%= form.text_area :description, class: "form-control col-6" %>
+    <div class="form-group text-center">
+      <%= form.label :description, class: "form-label mt-4" %><br />
+      <%= form.text_area :description, class: "form-control col-4" %>
     </div>
 
-    <div class="form-group">
-      <%= form.label :price, class: "form-label mt-4" %><br>
-      <%= form.text_field :price, class: "form-control col-6" %>
+    <div class="form-group text-center">
+      <%= form.label :price, class: "form-label mt-4" %><br />
+      <%= form.text_field :price, class: "form-control col-4" %>
     </div>
 
-    <div class="form-group">
-      <%= form.label :tag, class: "form-label mt-4" %><br>
-      <%= form.text_field :tag, class: "form-control col-6" %>
+    <div class="form-group text-center">
+      <%= form.label :tag, class: "form-label mt-4" %><br />
+      <%= form.text_field :tag, class: "form-control col-4" %>
     </div>
 
-    <p>
-      <%= form.label :image %><br>
-      <%= form.file_field :image %>
-    </p>
+    <div class="form-group text-center">
+      <%= form.label :image, class: "form-label mt-4 custom-file-upload" %><br />
+      <%= form.file_field :image, class: "hidden", id: "file-upload" %>
+      
+    </div>
 
-    <p>
-      <%= form.submit %>
-    </p>
+    <div class="actions mt-4 text-center">
+      <%= form.submit "Create Item", class: "btn btn-primary" %>
+    </div>
   <% end %>
-</div>
-
 </div>
