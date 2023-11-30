@@ -1,6 +1,5 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user! && :check_admin, only: [:new, :create, :edit, :update, :destroy, :unarchive]
-
   def new
     @item = Item.new
   end
@@ -8,18 +7,31 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
     if @item.save
-      redirect_to @item, notice: 'Photo ajoutée!.'
+      redirect_to @item, notice: 'Photo ajoutée!'
     else
       render :new
     end
   end
 
   def index
+    @join_table_item_cart = JoinTableItemsCart.new
     @items = Item.where(active: true)
   end
 
   def show
     @item = Item.find(params[:id])
+    @join_table_item_cart = JoinTableItemsCart.new(item_id: @item.id, cart_id: current_user.cart.id)
+  end
+
+  def add_to_cart
+    @item = Item.find(params[:id])
+    @join_table_item_cart = JoinTableItemsCart.new(item_id: @item.id, cart_id: current_user.cart.id)
+    
+    if @join_table_item_cart.save
+      redirect_to @item, notice: 'Article ajouté au panier.'
+    else
+      render :show
+    end
   end
 
   def edit
@@ -56,6 +68,10 @@ class ItemsController < ApplicationController
     params.require(:item).permit(:name, :description, :price, :tag, :image)
   end
 
+  def permit_link_params
+    params.require(:join_table_items_cart).permit(:item_id, :cart_id, :quantity)
+  end
+  
   def check_admin
     if current_user && current_user.admin?
       # User is authenticated and is an admin
