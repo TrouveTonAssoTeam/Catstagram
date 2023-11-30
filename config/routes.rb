@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :carts, except: [:index, :new, :edit]
   post 'carts/:id/add_item', to: 'items#add_to_cart', as: 'add_item_to_cart'
   delete 'carts/:id/remove_item', to: 'items#remove_from_cart', as: 'remove_item_from_cart'
-  post 'carts/:id/increment', to: 'carts#increment_quantity', as: 'increment_cart_item'
+  post 'carts/increment/:id', to: 'carts#increment_quantity', as: 'increment_cart_item'
   post 'carts/:id/decrement', to: 'carts#decrement_quantity', as: 'decrement_cart_item'
   resources :join_table_items_carts  # Cette ligne génère toutes les routes CRUD pour JoinTableItemsCarts
   
