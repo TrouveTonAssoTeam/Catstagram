@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :items
 
   resources :join_table_items_carts, only: [:create, :update, :destroy]
-  resources :carts, except: [:index, :new, :edit]
+  resources :carts, except: [:show, :new, :edit]
   post 'carts/:id/add_item', to: 'items#add_to_cart', as: 'add_item_to_cart'
   delete 'carts/:id/remove_item', to: 'items#remove_from_cart', as: 'remove_item_from_cart'
   post 'carts/increment/:id', to: 'carts#increment_quantity', as: 'increment_cart_item'

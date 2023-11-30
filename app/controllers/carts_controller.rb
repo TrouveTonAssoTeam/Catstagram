@@ -1,9 +1,10 @@
 class CartsController < ApplicationController
     include CartsHelper
 
-    before_action :require_login
+    before_action :authenticate_user!
+    before_action :set_cart
     
-    def show
+    def index
         @items_in_cart = JoinTableItemsCart.where(cart_id:current_user.cart.id)
     end
 
@@ -43,9 +44,9 @@ class CartsController < ApplicationController
     end
 
     def set_cart
-        # Logique pour définir le panier
-        # Par exemple, trouver le panier actuel de l'utilisateur connecté
-        @cart = current_user.cart # C'est un exemple, vous devez définir cette logique en fonction de votre application
-      end
+        if current_user.cart == nil
+            current_user.cart = Cart.create(user: current_user)
+        end
+    end
 
 end
