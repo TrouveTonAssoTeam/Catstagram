@@ -67,6 +67,9 @@
             </li>
 
           <% end %>
+            <li class="nav-item">
+              <%= link_to "Ajouter une photo", new_item_path, class: "nav-link #{is_active?(new_item_path)}" %>
+            </li>
         </ul>
         <form class="d-flex mt-3" role="search">
           <input class="form-control" type="search" placeholder="Search" aria-label="Search">
