@@ -34,12 +34,14 @@ class ItemsController < ApplicationController
     if jointableitemscart != nil
       quantity = jointableitemscart.quantity + 1
       jointableitemscart.update(quantity: quantity)
-      redirect_to @item, notice: 'Article ajouté au panier. Quantité : ' + quantity.to_s
+      flash[:notice] = 'Article ajouté au panier. Quantité : ' + quantity.to_s
+      redirect_back(fallback_location: item_path(@item))
     else
       @join_table_item_cart = JoinTableItemsCart.new(item_id: @item.id, cart_id: current_user.cart.id, quantity: 1)
 
       if @join_table_item_cart.save
-        redirect_to @item, notice: 'Article ajouté au panier.'
+        flash[:notice] = 'Article ajouté au panier.'
+        redirect_back(fallback_location: item_path(@item))
       else
         render :show
       end
