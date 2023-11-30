@@ -20,11 +20,27 @@
                         <% total_price = [] %>
                         <%  @items_in_cart.each do |item| %>
                             <tr>
-                            <th scope="row"><%= item.quantity %></th>
+                            <th scope="row">
+                                <%= JoinTableItemsCart.find(item.id).quantity %>
+                                <div class="btn-group">
+                                    <%= button_to increment_cart_item_path(item.id), method: :post, class: 'btn btn-primary' do %>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-up" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
+                                        </svg>
+                                    <% end %>
+
+                                    <%= button_to decrement_cart_item_path(item.id), method: :post, class: 'btn btn-primary' do %>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                                        </svg>
+                                    <% end %>
+                            </th>
                             <td><%= item.item.name %></td>
                             <td><%= item.item.price %>€</td>
                             <td><%= total_item = item.item.price*item.quantity.to_d %>€</td>
-                            <% total_price << total_item %> <td><a href="<%= join_table_items_cart_path(item.id) %>" class="btn btn-danger" data-confirm="Êtes-vous sûr de vouloir supprimer ce-t-s article-s du panier ?" data-method="DELETE">Supprimer l'article</a></td>
+                            <td>
+                                <%= button_to 'Supprimer le produit', remove_item_from_cart_path(item.id), form: { data: { turbo_confirm: 'Etes-vous sûr de vouloir supprimer le produit ?' } }, method: :delete, class: 'btn btn-danger' %>
+                            </td>
                             </tr>
                         <% end %>
                         

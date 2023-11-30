@@ -25,16 +25,9 @@
     <div class="product-price"><%= @item.price %>€</div>
     
     <div class="add-to-cart">
-  <% if @item && current_user.cart %>
-    <%= form_for @join_table_item_cart do |f| %>
-      <%= f.hidden_field :item_id, value: @item.id %>
-      <%= f.hidden_field :cart_id, value: current_user.cart.id %>
-      <button type="submit" class="btn btn-success">Ajouter au panier</button>
-    <% end %>
-  <% else %>
-    <!-- Gérer le cas où @item ou current_user.cart est nil -->
-    <p>Impossible d'ajouter au panier pour le moment.</p>
-  <% end %>
+      <%= button_to "Ajouter au panier", add_item_to_cart_path(@item), method: :post, class: "btn btn-primary" %>
+    </div>
+  
 </div>
 
 

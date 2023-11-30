@@ -20,18 +20,37 @@ class ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
-    @join_table_item_cart = JoinTableItemsCart.new(item_id: @item.id, cart_id: current_user.cart.id)
   end
 
   def add_to_cart
     @item = Item.find(params[:id])
-    @join_table_item_cart = JoinTableItemsCart.new(item_id: @item.id, cart_id: current_user.cart.id)
-    
-    if @join_table_item_cart.save
-      redirect_to @item, notice: 'Article ajouté au panier.'
-    else
-      render :show
+
+    if current_user.cart == nil
+      current_user.cart = Cart.create(user: current_user)
     end
+
+    # Check if the item is already in the cart
+    jointableitemscart = JoinTableItemsCart.find_by(cart_id: current_user.cart.id, item_id: @item.id)
+    if jointableitemscart != nil
+      quantity = jointableitemscart.quantity + 1
+      jointableitemscart.update(quantity: quantity)
+      redirect_to @item, notice: 'Article ajouté au panier. Quantité : ' + quantity.to_s
+    else
+      @join_table_item_cart = JoinTableItemsCart.new(item_id: @item.id, cart_id: current_user.cart.id, quantity: 1)
+
+      if @join_table_item_cart.save
+        redirect_to @item, notice: 'Article ajouté au panier.'
+      else
+        render :show
+      end
+    end
+  end
+
+  def remove_from_cart
+    @cartitem = current_user.cart.join_table_items_carts.find(params[:id])
+
+    @cartitem.destroy
+    redirect_to current_user.cart, notice: 'Article retiré du panier.'
   end
 
   def edit

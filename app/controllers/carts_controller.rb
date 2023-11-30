@@ -18,6 +18,22 @@ class CartsController < ApplicationController
     def destroy
     end
 
+    def increment_quantity
+        @item = JoinTableItemsCart.find(params[:id])
+        @item.increment(:quantity)
+
+        flash[:notice].now = 'Quantité modifiée !'
+
+        puts "#" * 20
+        puts @item
+        puts "#" * 20
+    end
+
+    def decrement_quantity
+        @item = JoinTableItemsCart.find(params[:id])
+        @item.decrement(:quantity)
+    end
+
     def set_cart
         # Logique pour définir le panier
         # Par exemple, trouver le panier actuel de l'utilisateur connecté
