@@ -38,9 +38,6 @@ Copy code
                                     <% end %>
                                 </div>
                             </th>
-                            <td><%= item.item.name %></td>
-                            <td><%= item.item.price %>€</td>
-                            <td><%= total_item = item.item.price * item.quantity.to_d %>€</td>
                             <td>
                                 <img src="<%= item.item.image_url %>" alt="<%= item.item.name %>">
                             </td>
@@ -57,9 +54,9 @@ Copy code
                             <th scope="row"></th>
                             <td></td>
                             <td></td>
-                            <td class="font-weight-bold">Prix total:</td>
-                            <td><%= total_price.inject(0){|sum,x| sum + x }%>€</td>
-                            <td><%= button_to 'Valider mon panier', checkout_create_path, class: 'btn btn-primary' %></td>
+                            <td class="fw-bold align-middle">Prix total:</td>
+                            <td class="align-middle"><%= total_price.inject(0){|sum,x| sum + x }%>€</td>
+                            <td class="align-middle"><%= button_to 'Valider mon panier', checkout_create_path, class: 'btn btn-primary' %></td>
                             </tr>
                     </tbody>
                 </table>
