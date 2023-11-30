@@ -20,3 +20,11 @@ Faker::Config.locale= 'fr'
         tag: "img"
     )
 end
+
+# Create admin
+User.create!(
+    first_name: "Admin",
+    email: "admin@catstagram.fr",
+    password: "admin123",
+    admin: true
+)
