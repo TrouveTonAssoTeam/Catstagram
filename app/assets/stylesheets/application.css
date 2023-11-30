@@ -17,14 +17,18 @@
  *= require profile
  *= require item
  *= require show
- */
+*/
+
+body > .container {
+  padding-bottom: 135px;
+}
 
 .form-center {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh - 100px - 1.5rem);
+  min-height: calc(100vh - 100px - 1.5rem - 135px);
   width: fit-content;
   min-width: 300px;
   margin: auto;
@@ -34,7 +38,7 @@
 }
 
 .h-100-center {
-  min-height: calc(100vh - 100px - 1.5rem);
+  min-height: calc(100vh - 100px - 1.5rem - 135px);
   display: flex;
   flex-direction: column;
   align-items: center;
