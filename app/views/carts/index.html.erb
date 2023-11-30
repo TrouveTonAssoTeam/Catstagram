@@ -56,7 +56,7 @@ Copy code
                             <td></td>
                             <td class="fw-bold align-middle">Prix total:</td>
                             <td class="align-middle"><%= @items_in_cart.map{|item| Item.find(item.item_id).price * item.quantity}.sum%>€</td>
-                            <td class="align-middle"><%= button_to 'Valider mon panier', checkout_create_path, class: 'btn btn-primary' %></td>
+                            <td class="align-middle"><%= button_to 'Valider mon panier', checkout_create_path, class: 'btn btn-primary', data: { turbo: false } %></td>
                             </tr>
                     </tbody>
                 </table>

@@ -11,7 +11,7 @@ require 'faker'
 Faker::Config.locale= 'fr'
 
 10.times do |i|
-    Item.create!(
+    @item = Item.create!(
         name: Faker::Book.title,
         description: Faker::Lorem.paragraph,
         # Price with 1 decimal from 0.5 to 20
@@ -19,6 +19,19 @@ Faker::Config.locale= 'fr'
         image_url: "https://picsum.photos/200/300?random=#{i}",
         tag: "img"
     )
+
+    @productStripe = Stripe::Product.create(
+        name: @item.name,
+        description: @item.description,
+        images: [@item.image_url]
+      )
+      @priceStripe = Stripe::Price.create(
+        unit_amount: (@item.price * 100).to_i,
+        currency: 'eur',
+        product: @productStripe.id,
+        active: true
+      )
+      @item.update(stripe_product: @productStripe.id, stripe_price: @priceStripe.id)
 end
 
 # Create admin
