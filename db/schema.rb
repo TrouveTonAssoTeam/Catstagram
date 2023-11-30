@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_29_155400) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_30_102105) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -57,6 +57,17 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_29_155400) do
     t.string "tag"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "active", default: true
+  end
+
+  create_table "join_table_items_carts", force: :cascade do |t|
+    t.bigint "item_id", null: false
+    t.bigint "cart_id", null: false
+    t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cart_id"], name: "index_join_table_items_carts_on_cart_id"
+    t.index ["item_id"], name: "index_join_table_items_carts_on_item_id"
   end
 
   create_table "orderitems", force: :cascade do |t|
@@ -65,6 +76,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_29_155400) do
     t.integer "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "price"
     t.index ["item_id"], name: "index_orderitems_on_item_id"
     t.index ["order_id"], name: "index_orderitems_on_order_id"
   end
@@ -96,6 +108,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_29_155400) do
     t.string "postal_code"
     t.string "city"
     t.string "country"
+    t.boolean "admin", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -103,6 +116,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_29_155400) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "carts", "users"
+  add_foreign_key "join_table_items_carts", "carts"
+  add_foreign_key "join_table_items_carts", "items"
   add_foreign_key "orderitems", "items"
   add_foreign_key "orderitems", "orders"
   add_foreign_key "orders", "orderitems", column: "orderitems_id"

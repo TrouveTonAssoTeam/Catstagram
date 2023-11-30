@@ -1,48 +1,61 @@
 <div class="product-container">
- 
-  <!-- Détails de l'article -->
-   <div class="product-details">
-   <div class="product-name"><%= @item.name %></div>
-   <div class="filter-by-type">
-    <label for="type-filter">Filtrer par type :</label>
-    <select id="type-filter">
-      <option value="type_photo">Photo</option>
-      <option value="type_mug">Mug</option>
-      <option value="type_poster">Poster</option>
-      <!-- ... Autres options en fonction des tags disponibles ... -->
-    </select>
-    <br>
-   <br>
-   <div class="product-img"><%= image_tag @item.image, id: 'item-image' if @item.image.attached? %></div>
-    <br>
-  </div>
-  <br>
-  <div class="product-description"><%= @item.description %></div>
-  <div class="product-price"><%= @item.price %>€</div>
-  <%= button_tag "Ajouter au panier", class: "btn btn-primary buy-button", type: "button" %>
-  </div>
-  </div>
-  </div>
-  
+  <div class="product-details">
+    <div class="product-name"><%= @item.name %></div>
+    
+    <!-- Sélecteur de type -->
+    <div class="filter-by-type">
+      <label for="type-filter">Filtrer par type :</label>
+      <select id="type-filter">
+        <option value="type_photo">Photo</option>
+        <option value="type_mug">Mug</option>
+        <option value="type_poster">Poster</option>
+        <!-- ... Autres options en fonction des tags disponibles ... -->
+      </select>
+    </div>
+
+    <!-- Image de produit -->
+    <div class="product-img">
+      <%= image_tag @item.image, id: 'item-image' if @item.image.attached? %>
+    </div>
+
+    <!-- Description du produit -->
+    <div class="product-description"><%= @item.description %></div>
+    
+    <!-- Prix du produit -->
+    <div class="product-price"><%= @item.price %>€</div>
+    
+    <div class="add-to-cart">
+  <% if @item && current_user.cart %>
+    <%= form_for @join_table_item_cart do |f| %>
+      <%= f.hidden_field :item_id, value: @item.id %>
+      <%= f.hidden_field :cart_id, value: current_user.cart.id %>
+      <button type="submit" class="btn btn-success">Ajouter au panier</button>
+    <% end %>
+  <% else %>
+    <!-- Gérer le cas où @item ou current_user.cart est nil -->
+    <p>Impossible d'ajouter au panier pour le moment.</p>
+  <% end %>
+</div>
+
 
 <script>
-var priceElem = document.getElementsByClassName("product-price")[0];
-var basePrice =  parseFloat(priceElem.innerText); 
-console.log(basePrice);
-var typeFilter = document.getElementById('type-filter');
+  var priceElem = document.querySelector(".product-price");
+  var basePrice = parseFloat(priceElem.innerText);
+  console.log(basePrice);
+
+  var typeFilter = document.getElementById('type-filter');
   typeFilter.addEventListener('change', function() {
     var selectedType = typeFilter.value;
     if (selectedType == 'type_mug') {
-        console.log("mug type");
-        priceElem.innerText = basePrice + 8;
+      console.log("mug type");
+      priceElem.innerText = basePrice + 8;
     } else if (selectedType == 'type_poster') {
-        console.log("poster type");
-        priceElem.innerText = basePrice + 2;
+      console.log("poster type");
+      priceElem.innerText = basePrice + 2;
     } else {
-        console.log("none type");
-        priceElem.innerText = basePrice;
+      console.log("none type");
+      priceElem.innerText = basePrice;
     }
     priceElem.innerText += "€";
   });
 </script>
-
