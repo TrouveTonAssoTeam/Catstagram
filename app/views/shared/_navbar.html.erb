@@ -21,11 +21,6 @@
           <li class="nav-item">
             <%= link_to "Accueil", root_path, class: "nav-link #{is_active?(root_path)}" %>
           </li>
-          <% if user_signed_in? && current_user.admin %>
-            <li class="nav-item">
-              <%= link_to "Dasboard", dashboard_index_path, class: "nav-link #{is_active?(dashboard_index_path)}" %>
-            </li>
-          <% end %>
           <li class="nav-item">
             <%= link_to "Comment ça marche ?", how_it_works_path, class: "nav-link #{is_active?(how_it_works_path)}" %>
           </li>
@@ -67,9 +62,15 @@
             </li>
 
           <% end %>
+
+          <% if user_signed_in? && current_user.admin %>
             <li class="nav-item">
-              <%= link_to "Ajouter une photo", new_item_path, class: "nav-link #{is_active?(new_item_path)}" %>
+              <%= link_to "Dasboard", dashboard_index_path, class: "mt-3 btn btn-outline-info #{is_active?(dashboard_index_path)}" %>
             </li>
+            <li class="nav-item">
+              <%= link_to "Ajouter une photo", new_item_path, class: "mt-3 btn btn-outline-info #{is_active?(new_item_path)}" %>
+            </li>
+          <% end %>
         </ul>
         <form class="d-flex mt-3" role="search">
           <input class="form-control" type="search" placeholder="Search" aria-label="Search">
