@@ -1,25 +1,24 @@
-<br/>
+Copy code
 <div class="container">
     <h1>Mon panier</h1>
     <br/>
     <br/>
-        <div class="row">
-            <div class="col-lg-8 col-md-8">
-                <table class="table">
-                    <thead>
-                        <tr>
+    <div class="row">
+        <div class="col-lg-8 col-md-8">
+            <table class="table">
+                <thead>
+                    <tr>
                         <th scope="col">Quantité</th>
                         <th scope="col">Nom de produit</th>
                         <th scope="col">Prix unitaire</th>
                         <th scope="col">Prix selon quantité</th>
                         <th scope="col"></th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% total_price = [] %>
-                        <%  @items_in_cart.each do |item| %>
-                            <tr>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% total_price = [] %>
+                    <%  @items_in_cart.each do |item| %>
+                        <tr>
                             <th scope="row" class="d-flex align-items-center">
                                 <%= JoinTableItemsCart.find(item.id).quantity %>
                                 <div class="btn-group-vertical ms-auto">
@@ -34,30 +33,34 @@
                                             <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
                                         </svg>
                                     <% end %>
+                                </div>
                             </th>
                             <td><%= item.item.name %></td>
                             <td><%= item.item.price %>€</td>
-                            <td><%= total_item = item.item.price*item.quantity.to_d %>€</td>
+                            <td><%= total_item = item.item.price * item.quantity.to_d %>€</td>
                             <td>
                                 <%= button_to 'Supprimer le produit', remove_item_from_cart_path(item.id), form: { data: { turbo_confirm: 'Etes-vous sûr de vouloir supprimer le produit ?' } }, method: :delete, class: 'btn btn-danger' %>
                             </td>
-                            </tr>
-                        <% end %>
-                        
-                         <tr>
-                            <th scope="row"></th>
-                            <td></td>
-                            <td></td></td>
-                            <td></td>
-                            </tr>
-                            <tr>
-                            <th scope="row"></th>
-                            <td></td>
-                            <td class="font-weight-bold">Prix total:</td>
-                            <td><%= total_price.inject(0){|sum,x| sum + x }%>€</td>
-                            </tr>
-                    </tbody>
-                </table>
-            </div>
+                        </tr>
+                    <% end %>
+
+                    <tr>
+                        <th scope="row"></th>
+                        <td></td>
+                        <td></td>
+                        <td class="font-weight-bold">Prix total:</td>
+                        <td><%= total_price.inject(0){|sum,x| sum + x }%>€</td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <%= button_to 'Valider mon panier', checkout_create_path, class: 'btn btn-primary' %>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
+    </div>
 </div>
