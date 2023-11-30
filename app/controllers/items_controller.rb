@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user! && :authenticate_admin!, only: [:new, :create, :edit, :update, :destroy, :unarchive]
+  before_action :authenticate_user! && :check_admin, only: [:new, :create, :edit, :update, :destroy, :unarchive]
 
   def new
     @item = Item.new
@@ -29,7 +29,8 @@ class ItemsController < ApplicationController
   def update
     @item = Item.find(params[:id])
     if @item.update(item_params)
-      redirect_to @item, notice: 'Produit modifié !'
+      flash[:notice] = 'Produit modifié !'
+      redirect_back(fallback_location: item_path(@item))
     else
       render :edit
     end
@@ -55,11 +56,11 @@ class ItemsController < ApplicationController
     params.require(:item).permit(:name, :description, :price, :tag, :image)
   end
 
-  def authenticate_admin!
-    if current_user
-        if !current_user.admin?
-            redirect_to root_path, alert: "Vous vous êtes sûrement perdu."
-        end
+  def check_admin
+    if current_user && current_user.admin?
+      # User is authenticated and is an admin
+    else
+      redirect_to root_path, alert: "Vous avez dû vous perdre."
     end
   end
 end

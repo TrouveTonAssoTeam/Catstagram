@@ -1,5 +1,5 @@
 class DashboardController < ApplicationController
-    before_action :authenticate_user! && :authenticate_admin!
+    before_action :authenticate_user! && :check_admin
     def index
         @items = Item.where(active: true)
         @deleted_items = Item.where(active: false)
@@ -7,11 +7,11 @@ class DashboardController < ApplicationController
 
     private
 
-    def authenticate_admin!
-        if current_user
-            if !current_user.admin?
-                redirect_to root_path, alert: "Vous vous êtes sûrement perdu."
-            end
+    def check_admin
+        if current_user && current_user.admin?
+          # User is authenticated and is an admin
+        else
+          redirect_to root_path, alert: "Vous avez dû vous perdre."
         end
-    end
+      end
 end
