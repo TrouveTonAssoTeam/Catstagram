@@ -21,5 +21,3 @@ Ce projet est une boutique en ligne développée en utilisant Ruby on Rails et J
 - Lancement du serveur : Utilisez rails server pour démarrer le serveur local.
 
 Ce projet a été développé par l'équipe TROUVETONASSO.COM. Il utilise des ressources tierces pour les photos de chatons, veuillez consulter les crédits et les droits d'auteur appropriés pour ces images.
-
-Voici le lien : https://catstagram-02652d5bd32c.herokuapp.com/
